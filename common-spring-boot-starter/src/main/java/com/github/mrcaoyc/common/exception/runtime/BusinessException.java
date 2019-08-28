@@ -1,19 +1,19 @@
-package com.github.mracoyc.common.exception.runtime;
+package com.github.mrcaoyc.common.exception.runtime;
 
-import com.github.mracoyc.common.errormessage.BaseErrorMessage;
+import com.github.mrcaoyc.common.errormessage.BaseErrorMessage;
 
 /**
- * 未认证异常
+ * 业务异常
  *
  * @author CaoYongCheng
  */
-public class UnauthorizedException extends BaseRuntimeException {
+public class BusinessException extends BaseRuntimeException {
     /**
      * 构造函数
      *
      * @param errorMessage 错误信息
      */
-    public UnauthorizedException(BaseErrorMessage errorMessage) {
+    public BusinessException(BaseErrorMessage errorMessage) {
         super(errorMessage);
     }
 
@@ -23,7 +23,7 @@ public class UnauthorizedException extends BaseRuntimeException {
      * @param errorMessage 错误信息
      * @param throwable    具体异常
      */
-    public UnauthorizedException(BaseErrorMessage errorMessage, Throwable throwable) {
+    public BusinessException(BaseErrorMessage errorMessage, Throwable throwable) {
         super(errorMessage, throwable);
     }
 
@@ -33,7 +33,7 @@ public class UnauthorizedException extends BaseRuntimeException {
      * @param code    错误码
      * @param message 错误消息
      */
-    public UnauthorizedException(int code, String message) {
+    public BusinessException(int code, String message) {
         super(code, message);
     }
 
@@ -44,7 +44,7 @@ public class UnauthorizedException extends BaseRuntimeException {
      * @param message   错误消息
      * @param throwable 具体异常
      */
-    public UnauthorizedException(int code, String message, Throwable throwable) {
+    public BusinessException(int code, String message, Throwable throwable) {
         super(code, message, throwable);
     }
 }

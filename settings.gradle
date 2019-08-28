@@ -1,3 +1,5 @@
 rootProject.name = 'mrcaoyc-spring-boot-starter'
-include 'mrcaoyc-common'
+include 'common-spring-boot-starter'
+include 'web-spring-boot-starter'
+include 'demo'
 

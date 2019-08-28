@@ -1,6 +1,6 @@
-package com.github.mracoyc.common.errormessage;
+package com.github.mrcaoyc.common.errormessage;
 
-import com.github.mracoyc.common.exception.runtime.BaseRuntimeException;
+import com.github.mrcaoyc.common.exception.runtime.BaseRuntimeException;
 
 /**
  * 所有异常信息接口

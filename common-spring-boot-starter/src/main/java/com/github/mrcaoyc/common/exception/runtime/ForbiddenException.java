@@ -1,6 +1,6 @@
-package com.github.mracoyc.common.exception.runtime;
+package com.github.mrcaoyc.common.exception.runtime;
 
-import com.github.mracoyc.common.errormessage.BaseErrorMessage;
+import com.github.mrcaoyc.common.errormessage.BaseErrorMessage;
 
 /**
  * 未授权异常

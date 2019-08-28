@@ -1,4 +1,4 @@
-package com.github.mracoyc.common.errormessage;
+package com.github.mrcaoyc.common.errormessage;
 
 /**
  * 异常实体类

@@ -1,19 +1,19 @@
-package com.github.mracoyc.common.exception.runtime;
+package com.github.mrcaoyc.common.exception.runtime;
 
-import com.github.mracoyc.common.errormessage.BaseErrorMessage;
+import com.github.mrcaoyc.common.errormessage.BaseErrorMessage;
 
 /**
- * 数据未找到异常
+ * 错误请求异常
  *
  * @author CaoYongCheng
  */
-public class DataNotFoundException extends BaseRuntimeException {
+public class BadRequestException extends BaseRuntimeException {
     /**
      * 构造函数
      *
      * @param errorMessage 错误信息
      */
-    public DataNotFoundException(BaseErrorMessage errorMessage) {
+    public BadRequestException(BaseErrorMessage errorMessage) {
         super(errorMessage);
     }
 
@@ -23,7 +23,7 @@ public class DataNotFoundException extends BaseRuntimeException {
      * @param errorMessage 错误信息
      * @param throwable    具体异常
      */
-    public DataNotFoundException(BaseErrorMessage errorMessage, Throwable throwable) {
+    public BadRequestException(BaseErrorMessage errorMessage, Throwable throwable) {
         super(errorMessage, throwable);
     }
 
@@ -33,7 +33,7 @@ public class DataNotFoundException extends BaseRuntimeException {
      * @param code    错误码
      * @param message 错误消息
      */
-    public DataNotFoundException(int code, String message) {
+    public BadRequestException(int code, String message) {
         super(code, message);
     }
 
@@ -44,7 +44,7 @@ public class DataNotFoundException extends BaseRuntimeException {
      * @param message   错误消息
      * @param throwable 具体异常
      */
-    public DataNotFoundException(int code, String message, Throwable throwable) {
+    public BadRequestException(int code, String message, Throwable throwable) {
         super(code, message, throwable);
     }
 }
