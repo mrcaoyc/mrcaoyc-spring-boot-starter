@@ -1,20 +1,22 @@
 package com.github.mrcaoyc.demo.controller;
 
-import com.github.mrcaoyc.demo.controller.demo.model.User;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.github.mrcaoyc.keygen.KeyGenerator;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 /**
  * @author CaoYongCheng
  */
 @RestController
 public class HelloController {
+    private final KeyGenerator keyGenerator;
 
-    @PostMapping("/hello")
-    public Object helloMessage(@Valid @RequestBody User user) {
-        return user;
+    public HelloController(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
+    @GetMapping("/hello")
+    public Object helloMessage() {
+        return keyGenerator.generateKey();
     }
 }
