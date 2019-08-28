@@ -8,13 +8,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.text.MessageFormat;
+import java.util.stream.Collectors;
 
 /**
  * @author CaoYongCheng
@@ -25,6 +29,7 @@ public class GlobalExceptionAdvice {
 
     /**
      * 方法参数类型不匹配异常(400)
+     * url参数类型不匹配时出现的异常
      */
     @ResponseBody
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -34,6 +39,31 @@ public class GlobalExceptionAdvice {
                 GlobalErrorMessage.PARAMETER_VALID_ERROR.getCode(),
                 MessageFormat.format("参数{0}类型不匹配", e.getName())
         );
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * body参数转换失败异常(400)
+     */
+    @ResponseBody
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public HttpEntity<?> httpMessageNotReadableException(HttpMessageNotReadableException e) {
+        LOGGER.error("请求参数绑定失败，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
+        ErrorMessage errorMessage = new ErrorMessage(GlobalErrorMessage.PARAMETER_VALID_ERROR);
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * 通过@valid注解进行参数校验失败的异常（400）
+     */
+    @ResponseBody
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public HttpEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException e) {
+        LOGGER.error("参数验证失败，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
+        String errorText = e.getBindingResult().getAllErrors().stream().map(error ->
+                error.getObjectName() + ":" + error.getDefaultMessage()
+        ).collect(Collectors.joining("\n"));
+        ErrorMessage errorMessage = new ErrorMessage(GlobalErrorMessage.PARAMETER_VALID_ERROR.getCode(), errorText);
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
@@ -90,6 +120,14 @@ public class GlobalExceptionAdvice {
         LOGGER.error("Http请求方法不支持，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
         ErrorMessage errorMessage = new ErrorMessage(GlobalErrorMessage.METHOD_NOT_ALLOWED);
         return new ResponseEntity<>(errorMessage, HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public HttpEntity<?> httpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
+        LOGGER.error("不支持的媒体类型，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
+        ErrorMessage errorMessage = new ErrorMessage(GlobalErrorMessage.UNSUPPORTED_MEDIA_TYPE);
+        return new ResponseEntity<>(errorMessage, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
     }
 
     /**

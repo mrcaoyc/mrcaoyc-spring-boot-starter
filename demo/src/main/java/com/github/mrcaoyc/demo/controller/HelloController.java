@@ -1,7 +1,11 @@
 package com.github.mrcaoyc.demo.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.github.mrcaoyc.demo.controller.demo.model.User;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @author CaoYongCheng
@@ -9,9 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @GetMapping("/hello")
-    public Object helloMessage(String name, Integer age, Integer height) {
-        Integer.parseInt(name);
-        return "name=" + name + ",age=" + age;
+    @PostMapping("/hello")
+    public Object helloMessage(@Valid @RequestBody User user) {
+        return user;
     }
 }
