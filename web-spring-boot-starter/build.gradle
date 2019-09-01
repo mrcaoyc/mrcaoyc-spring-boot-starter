@@ -1,9 +1,5 @@
 dependencies {
-    compile project(":common-spring-boot-starter")
-    api 'org.springframework.boot:spring-boot-starter-web'
-    api('org.springframework.boot:spring-boot-starter-actuator')
-    api('org.springframework.boot:spring-boot-starter-data-rest')
-    api('org.springframework.boot:spring-boot-starter-validation')
-    api('org.springframework.boot:spring-boot-starter-hateoas')
-    api('org.springframework.boot:spring-boot-configuration-processor')
+    implementation project(":common-spring-boot-starter")
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation('org.springframework.boot:spring-boot-configuration-processor')
 }

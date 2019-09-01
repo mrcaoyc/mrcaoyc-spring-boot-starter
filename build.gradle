@@ -16,10 +16,12 @@ allprojects {
     apply plugin: 'idea'
     apply plugin: 'eclipse'
     apply plugin: 'maven'
+
 }
 
 subprojects {
     apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
     // 指定JDK版本
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -35,5 +37,22 @@ subprojects {
     dependencies {
         implementation platform("org.springframework.boot:spring-boot-starter-parent:${springBootVersion}")
     }
+
+    publishing{
+        publications{
+            myLibrary(MavenPublication){
+                from components.java
+            }
+        }
+
+        repositories{
+            maven{
+                name="myRepo"
+                url="E:\\source\\person\\maven-repo"
+            }
+        }
+    }
 }
+
+
 
