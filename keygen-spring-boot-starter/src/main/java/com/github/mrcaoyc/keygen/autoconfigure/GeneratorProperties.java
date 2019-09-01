@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author CaoYongCheng
  */
-@ConfigurationProperties(prefix = "key-generator")
+@ConfigurationProperties(prefix = "mrcaoyc.keygen")
 public class GeneratorProperties {
     /**
      * 工作Id实现侧率

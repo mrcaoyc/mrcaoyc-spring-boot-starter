@@ -19,7 +19,7 @@ import java.util.Calendar;
 @Configuration
 @EnableConfigurationProperties({GeneratorProperties.class})
 @ConditionalOnClass(KeyGenerator.class)
-@ConditionalOnProperty(prefix = "key-generator", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "mrcaoyc.keygen", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GeneratorAutoConfiguration {
 
     @Bean
