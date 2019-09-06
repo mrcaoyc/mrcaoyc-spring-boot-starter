@@ -72,7 +72,18 @@ public class GlobalExceptionAdvice {
      */
     @ResponseBody
     @ExceptionHandler(BusinessException.class)
-    public HttpEntity<?> businessExceptionHandler(BusinessException e) {
+    public HttpEntity<?> businessException(BusinessException e) {
+        LOGGER.debug("业务异常,错误码:{},错误消息:{}.", e.getCode(), e.getMessage());
+        ErrorMessage errorMessage = new ErrorMessage(e.getCode(), e.getMessage());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * 业务异常(400)
+     */
+    @ResponseBody
+    @ExceptionHandler(BadRequestException.class)
+    public HttpEntity<?> badRequestException(BadRequestException e) {
         LOGGER.debug("业务异常,错误码:{},错误消息:{}.", e.getCode(), e.getMessage());
         ErrorMessage errorMessage = new ErrorMessage(e.getCode(), e.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
@@ -97,7 +108,7 @@ public class GlobalExceptionAdvice {
     public HttpEntity<?> credentialsInvalidException(ForbiddenException e) {
         LOGGER.debug("未授权异常,错误码:{},错误消息:{}.堆栈信息:{}.", e.getCode(), e.getMessage(), e);
         ErrorMessage errorMessage = new ErrorMessage(e.getCode(), e.getMessage());
-        return new ResponseEntity<>(errorMessage, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(errorMessage, HttpStatus.FORBIDDEN);
     }
 
     /**
