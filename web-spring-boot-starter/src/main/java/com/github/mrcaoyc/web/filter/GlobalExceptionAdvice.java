@@ -34,7 +34,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public HttpEntity<?> methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
-        LOGGER.error("方法参数类型不匹配，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
+        LOGGER.warn("方法参数类型不匹配，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
         ErrorMessage errorMessage = new ErrorMessage(
                 GlobalErrorMessage.PARAMETER_VALID_ERROR.getCode(),
                 MessageFormat.format("参数{0}类型不匹配", e.getName())
@@ -48,7 +48,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public HttpEntity<?> httpMessageNotReadableException(HttpMessageNotReadableException e) {
-        LOGGER.error("请求参数绑定失败，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
+        LOGGER.warn("请求参数绑定失败，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
         ErrorMessage errorMessage = new ErrorMessage(GlobalErrorMessage.PARAMETER_VALID_ERROR);
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
@@ -59,7 +59,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public HttpEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException e) {
-        LOGGER.error("参数验证失败，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
+        LOGGER.warn("参数验证失败，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
         String errorText = e.getBindingResult().getAllErrors().stream().map(error ->
                 error.getObjectName() + ":" + error.getDefaultMessage()
         ).collect(Collectors.joining("\n"));
@@ -73,7 +73,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(BusinessException.class)
     public HttpEntity<?> businessException(BusinessException e) {
-        LOGGER.debug("业务异常,错误码:{},错误消息:{}.", e.getCode(), e.getMessage());
+        LOGGER.warn("业务异常,错误码:{},错误消息:{}.", e.getCode(), e.getMessage());
         ErrorMessage errorMessage = new ErrorMessage(e.getCode(), e.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
@@ -84,7 +84,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(BadRequestException.class)
     public HttpEntity<?> badRequestException(BadRequestException e) {
-        LOGGER.debug("业务异常,错误码:{},错误消息:{}.", e.getCode(), e.getMessage());
+        LOGGER.warn("业务异常,错误码:{},错误消息:{}.", e.getCode(), e.getMessage());
         ErrorMessage errorMessage = new ErrorMessage(e.getCode(), e.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
@@ -95,7 +95,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(UnauthorizedException.class)
     public HttpEntity<?> unauthorizedException(UnauthorizedException e) {
-        LOGGER.debug("身份无效异常,错误码:{},错误消息:{}.堆栈信息:{}.", e.getCode(), e.getMessage(), e);
+        LOGGER.warn("身份无效异常,错误码:{},错误消息:{}.堆栈信息:{}.", e.getCode(), e.getMessage(), e);
         ErrorMessage errorMessage = new ErrorMessage(e.getCode(), e.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.UNAUTHORIZED);
     }
@@ -106,7 +106,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(ForbiddenException.class)
     public HttpEntity<?> credentialsInvalidException(ForbiddenException e) {
-        LOGGER.debug("未授权异常,错误码:{},错误消息:{}.堆栈信息:{}.", e.getCode(), e.getMessage(), e);
+        LOGGER.warn("未授权异常,错误码:{},错误消息:{}.堆栈信息:{}.", e.getCode(), e.getMessage(), e);
         ErrorMessage errorMessage = new ErrorMessage(e.getCode(), e.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.FORBIDDEN);
     }
@@ -117,7 +117,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(DataNotFoundException.class)
     public HttpEntity<?> dataNotFoundException(DataNotFoundException e) {
-        LOGGER.debug("数据不存在,错误码:{},错误消息:{}.", e.getCode(), e.getMessage());
+        LOGGER.warn("数据不存在,错误码:{},错误消息:{}.", e.getCode(), e.getMessage());
         ErrorMessage errorMessage = new ErrorMessage(e.getCode(), e.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
@@ -128,7 +128,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public HttpEntity<?> httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-        LOGGER.error("Http请求方法不支持，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
+        LOGGER.warn("Http请求方法不支持，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
         ErrorMessage errorMessage = new ErrorMessage(GlobalErrorMessage.METHOD_NOT_ALLOWED);
         return new ResponseEntity<>(errorMessage, HttpStatus.METHOD_NOT_ALLOWED);
     }
@@ -136,7 +136,7 @@ public class GlobalExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public HttpEntity<?> httpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
-        LOGGER.error("不支持的媒体类型，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
+        LOGGER.warn("不支持的媒体类型，错误信息：{}，堆栈信息：{}", e.getMessage(), e);
         ErrorMessage errorMessage = new ErrorMessage(GlobalErrorMessage.UNSUPPORTED_MEDIA_TYPE);
         return new ResponseEntity<>(errorMessage, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
     }
